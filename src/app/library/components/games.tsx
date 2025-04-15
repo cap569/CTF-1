@@ -1,12 +1,12 @@
 import Image from "next/image";
 import React from "react";
 
-function Card() {
+function GameCard() {
   return (
-    <div className="relative w-full h-full shadow-2xl cursor-pointer hover:opacity-85 transition-all delay-100">
+    <div className="w-full h-full shadow-2xl">
       <Image
         height={100}
-        width={100}
+        width={200}
         className="w-full h-64 rounded-t-sm"
         alt="game image"
         src={
@@ -16,27 +16,18 @@ function Card() {
 
       <footer
         className="
-      w-full p-4 pt-3 pb-5 rounded-b-sm
-      bg-linear-to-b from-[#194F71] to-[#2480A7]
+      flex flex-col items-start w-full p-4 pt-3 pb-5 rounded-b-sm
+      bg-[#171D25]
       "
       >
-        <h1>Nome do jogo</h1>
-        <p className="text-sm mt-2 text-[#b6bcc0]">
-          Oferta acaba em 21/04/2025
-        </p>
-        {/** Disconto */}
-        <div className="flex items-center justify-start mt-2">
-          <div className="px-1.5 h-10 py-0.5 flex items-center justify-center bg-[#4C6B22] font-semibold text-2xl text-[#BEEE11]">
-            -50%
-          </div>
-          <div className="bg-[#344654] h-10 flex flex-col items-end pr-2 pl-3 py-0.5">
-            <p className="text-xs line-through text-[#617381] ">R$ 80.00</p>
-            <p className="text-sm text-[#BEEE11]">R$ 40.00</p>
-          </div>
+        <h1 className="text-lg">Nome do jogo</h1>
+        <p className="text-sm text-[#b6bcc0]">Comprado em 04/02/2025</p>
+        <div className="from-[#2A475E] to-[#223143] bg-gradient-to-b text-sm px-4 py-1.5 rounded-sm cursor-pointer opacity-100 hover:opacity-85 transition-all delay-75 mt-4">
+          Reembolsar
         </div>
       </footer>
     </div>
   );
 }
 
-export default Card;
+export default GameCard;

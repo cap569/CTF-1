@@ -22,7 +22,7 @@ function Page() {
       <footer className="flex items-center justify-center mt-14 pb-28  bg-[#181A21]">
         <div className="w-[300px] flex items-center justify-center flex-col">
           <h1 className="text-xl mb-4 font-semibold">Já tem uma conta?</h1>
-          <Link href={"/login"} className="cursor-pointer opacity-80 hover:opacity-100 h-8 flex items-center justify-center px-6 bg-linear-to-r from-[#07BFFF] to-[#2D73FF] rounded-xs text-white">
+          <Link href={"/login"} className="cursor-pointer opacity-80 hover:opacity-100 h-8 flex items-center justify-center px-6 bg-linear-to-r from-[#07BFFF] to-[#2D73FF] rounded-sm text-white">
             Entrar agora
           </Link>
         </div>

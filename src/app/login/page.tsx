@@ -24,7 +24,7 @@ function Page() {
           <h1 className="text-xl mb-4 font-semibold">Novo na steem?</h1>
           <Link
             href={"/register"}
-            className="cursor-pointer opacity-80 hover:opacity-100 h-8 flex items-center justify-center px-6 bg-linear-to-r from-[#07BFFF] to-[#2D73FF] rounded-xs text-white"
+            className="rounded-sm cursor-pointer opacity-80 hover:opacity-100 h-8 flex items-center justify-center px-6 bg-linear-to-r from-[#07BFFF] to-[#2D73FF] text-white"
           >
             Criar uma conta
           </Link>
