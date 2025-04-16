@@ -1,9 +1,17 @@
+import { getUserById } from "@/lib/db/user";
+import validateJwt from "@/lib/validateJwt";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function Navbar() {
+async function Navbar() {
   const activeClass = "text-[#1a9fff] border-[#1a9fff] hover:text-[#1a9fff]!";
+
+  let user = null;
+  const token = await validateJwt();
+  if (token) {
+    user = await getUserById(token.id);
+  }
 
   return (
     <div className="h-24 w-full flex bg-[#171D25]">
@@ -23,18 +31,29 @@ function Navbar() {
           >
             LOJA
           </Link>
-          <Link
-            className="hover:text-white transition-all delay-75"
-            href={"/library"}
-          >
-            BIBLIOTECA
-          </Link>
-          <Link
-            className="hover:text-white transition-all delay-75"
-            href={"/profile"}
-          >
-            NOGITZIN
-          </Link>
+          {user ? (
+            <>
+              <Link
+                className="hover:text-white transition-all delay-75"
+                href={"/library"}
+              >
+                BIBLIOTECA
+              </Link>
+              <Link
+                className="hover:text-white transition-all delay-75 uppercase"
+                href={"/profile"}
+              >
+                {user.username}
+              </Link>
+            </>
+          ) : (
+            <Link
+              className="hover:text-white transition-all delay-75 uppercase"
+              href={"/login"}
+            >
+              ENTRAR
+            </Link>
+          )}
         </div>
       </div>
     </div>

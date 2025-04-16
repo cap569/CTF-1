@@ -1,22 +1,24 @@
-import Link from "next/link";
 import React from "react";
-import Reviews from "./components/reviews";
-import validateJwt from "@/lib/validateJwt";
-import { getUserById } from "@/lib/db/user";
-import { redirect } from "next/navigation";
+import Reviews from "../components/reviews";
+import { getUserBySlug } from "@/lib/db/user";
 
-async function Page() {
-  const token = await validateJwt();
-  if (!token) redirect("/login");
-  const user = await getUserById(token.id);
-  if (!user) redirect("/login");
-  
+async function Page({ params }: { params: { slug: string } }) {
+  const { slug } = await params;
+
+  const user = await getUserBySlug(slug);
+  if (!user)
+    return (
+      <div className="flex items-center justify-center mt-8">
+        Usuário não encontrado
+      </div>
+    );
+
   return (
     <div className="max-w-4xl w-full mx-auto flex items-center justify-between flex-col gap-12">
       <header className="w-full bg-[#171D25] p-6 mt-4 rounded-md shadow-2xl flex items-start justify-between">
         <div className="flex items-start gap-6 h-full">
           {/** Imagem */}
-          <div className="h-36 w-36 bg-cyan-800 rounded-sm" />
+          <div className="h-36 w-36 bg-cyan-800 rounded-sm"/>
 
           {/** Informacoes */}
           <div className="flex flex-col items-start max-w-[300px] justify-between h-36 gap-2">
@@ -30,19 +32,6 @@ async function Page() {
               {user.description}
             </p>
           </div>
-        </div>
-
-        <div className="flex items-end flex-col justify-between h-36">
-          <div className="text-sm bg-emerald-800 font-semibold px-3 py-1 rounded-sm text-emerald-200">
-            R$ {user.balance.toFixed(2)}
-          </div>
-
-          <Link
-            className="from-[#2A475E] to-[#223143] bg-gradient-to-b text-sm px-4 py-1.5 rounded-sm cursor-pointer opacity-100 hover:opacity-85 transition-all delay-75"
-            href={"/editprofile"}
-          >
-            Editar perfil
-          </Link>
         </div>
       </header>
 

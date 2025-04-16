@@ -1,0 +1,62 @@
+import options from "@/securityOptions";
+import mongoose from "mongoose";
+import z from "zod";
+
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  isAdmin: { type: Boolean, default: false },
+  balance: { type: Number, default: 5 },
+  description: {
+    type: String,
+    default: "Adicione uma descrição maneira ao editar seu perfil!",
+  },
+});
+
+const User = mongoose.models.User || mongoose.model("User", userSchema);
+
+export const UserValidators = {
+  username: z
+    .string({
+      message: "Username deve ser uma string",
+      required_error: "Faltando Username",
+    })
+    .min(3, "Username deve ter no mínimo 3 caracteres")
+    .regex(/^[A-Za-z-]+$/, "Username deve conter apenas letras e hífen")
+    .max(
+      options.maxUsernameLength,
+      `Username deve ter no maximo ${options.maxUsernameLength} caracteres`
+    ),
+  password: z
+    .string({
+      message: "Password deve ser uma string",
+      required_error: "Faltando password",
+    })
+    .min(3, "A senha deve ter no mínimo 3 caracteres")
+    .max(
+      options.maxPasswordLength,
+      `A senha deve ter no máximo ${options.maxPasswordLength} `
+    ),
+  email: z
+    .string({
+      message: "Email deve ser uma string",
+      required_error: "Faltando Email",
+    })
+    .email({ message: "Email deve ser um email... q q vc tava pensando?" })
+    .max(
+      options.maxEmailLength,
+      `Email deve ter no máximo ${options.maxEmailLength} caracteres`
+    ),
+  description: z
+    .string({
+      message: "Description deve ser uma string",
+      required_error: "Description password",
+    })
+    .max(
+      options.maxDescriptionLength,
+      `Description deve ter no máximo ${options.maxDescriptionLength} `
+    ),
+};
+
+export default User;

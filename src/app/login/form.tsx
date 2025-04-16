@@ -1,20 +1,39 @@
 "use client";
 
 import React, { useState } from "react";
+import axios from "axios";
 
 function LoginForm() {
   const [remember, setRemeber] = useState(true);
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
+  const [err, setErr] = useState("");
 
   const [loading, setLoading] = useState(false);
 
   const valid = name && pass && !loading;
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!valid) return;
     setLoading(true);
-    // @TODO: Login
+    await axios
+      .post(
+        "/api/login",
+        {
+          username: name,
+          password: pass,
+        },
+        { withCredentials: true }
+      )
+      .then(() => {
+        location.href = "/";
+        setErr("");
+      })
+      .catch((err) => {
+        setErr(err.response.data.error);
+      });
+    // @TODO: Check email
+    setLoading(false);
   };
 
   return (
@@ -62,6 +81,9 @@ function LoginForm() {
       >
         Entrar
       </button>
+      {err && (
+        <p className="text-red-600 text-sm w-full text-center mt-4">{err}</p>
+      )}
     </form>
   );
 }

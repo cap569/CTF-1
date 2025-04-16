@@ -1,20 +1,40 @@
 "use client";
 
 import { validateEmail } from "@/utils/email";
+import axios from "axios";
 import React, { useState } from "react";
 
 function RegisterForm() {
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
   const [email, setEmail] = useState("");
+  const [err, setErr] = useState("");
 
   const [loading, setLoading] = useState(false);
   const valid = name && pass && email && validateEmail(email) && !loading;
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!valid) return;
-    // @TODO: Check email
     setLoading(true);
+    await axios
+      .post(
+        "/api/register",
+        {
+          username: name,
+          email,
+          password: pass,
+        },
+        { withCredentials: true }
+      )
+      .then(() => {
+        location.href = "/";
+        setErr("");
+      })
+      .catch((err) => {
+        setErr(err.response.data.error);
+      });
+    // @TODO: Check email
+    setLoading(false);
     // @TODO: Login
   };
 
@@ -62,6 +82,10 @@ function RegisterForm() {
       >
         Registrar
       </button>
+
+      {err && (
+        <p className="text-red-600 text-sm w-full text-center mt-4">{err}</p>
+      )}
     </form>
   );
 }
