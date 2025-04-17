@@ -4,6 +4,7 @@ import React from "react";
 import Form from "./form";
 import PasswordForm from "./passwordform";
 import { redirect } from "next/navigation";
+import Navbar from "@/components/navbar";
 
 async function Page() {
   const token = await validateJwt();
@@ -15,6 +16,7 @@ async function Page() {
 
   return (
     <>
+      <Navbar page="perfil" />
       <div className="max-w-2xl p-8 rounded-md mt-8 bg-[#171D25] w-full mx-auto flex items-start justify-start flex-col">
         <p className="text-[#1999ff] text-sm mb-6 font-medium uppercase">
           ALTERAR PERFIL

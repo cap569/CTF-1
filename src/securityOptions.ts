@@ -13,6 +13,7 @@ const options = {
   maxGames: 50,
   maxGameTitle: 30,
   maxGameDescription: 300,
+  maxGamePicture: 300,
 
   maxPurchases: 5000,
 

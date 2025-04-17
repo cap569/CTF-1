@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 
-interface jwtPayload {
+export interface jwtPayload {
   id: string;
   isAdmin: boolean;
   username: string;
