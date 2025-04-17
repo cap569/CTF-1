@@ -33,9 +33,7 @@ function RegisterForm() {
       .catch((err) => {
         setErr(err.response.data.error);
       });
-    // @TODO: Check email
     setLoading(false);
-    // @TODO: Login
   };
 
   return (

@@ -4,7 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-async function Navbar({ page }: { page?: "biblioteca" | "loja" | "perfil" | "login" }) {
+async function Navbar({
+  page,
+}: {
+  page?: "biblioteca" | "loja" | "perfil" | "login";
+}) {
   const activeClass =
     "border-b-2 text-[#1a9fff] border-[#1a9fff] hover:text-[#1a9fff]!";
 

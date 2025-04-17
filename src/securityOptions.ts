@@ -4,6 +4,8 @@
 // resources. Thank me later.
 
 const options = {
+  paginationSize: 50, // For admin tables
+
   maxUsers: 2000,
   maxUsernameLength: 30,
   maxEmailLength: 150,
