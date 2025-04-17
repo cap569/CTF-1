@@ -57,6 +57,21 @@ export const UserValidators = {
       options.maxDescriptionLength,
       `Description deve ter no máximo ${options.maxDescriptionLength} `
     ),
+  balance: z
+    .number({
+      message: "balance deve ser um numero",
+      required_error: "Faltando balance",
+    })
+    .min(0, "Balance deve ser maior ou igual a 0")
+    .max(1000000, `Balance deve ser no máximo 1.000.000`),
+  role: z.enum(["user", "admin"], {
+    message: "Role é user ou admin",
+    required_error: "Faltando Role",
+  }),
+  id: z.string({
+    message: "Id deve ser uma string",
+    required_error: "Faltando Id",
+  }),
 };
 
 export default User;

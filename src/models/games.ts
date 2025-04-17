@@ -8,7 +8,7 @@ const gameSchema = new mongoose.Schema({
   photoUrl: { type: String, require: true }, // USE ONLY IMGUR IMAGES.
   price: { type: Number, default: 5 },
   description: { type: String, default: "" },
-  activePromo: { type: Number, default: 0 }, // in percentage goes from 0 to 1.
+  activePromo: { type: Number, default: 0 }, // in percentage goes from 0 to 100.
 });
 
 const Game = mongoose.models.Game || mongoose.model("Game", gameSchema);

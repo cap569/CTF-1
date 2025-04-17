@@ -13,11 +13,15 @@ export interface UserInterface {
 }
 
 export async function getUserById(id: string): Promise<UserInterface | null> {
-  await connectDB();
-  const user = await User.findById(id);
-  if (!user) return null;
-  user.id = user._id.toString();
-  return user as UserInterface;
+  try {
+    await connectDB();
+    const user = await User.findById(id);
+    if (!user) return null;
+    user.id = user._id.toString();
+    return user as UserInterface;
+  } catch {
+    return null;
+  }
 }
 
 export async function getUserBySlug(
