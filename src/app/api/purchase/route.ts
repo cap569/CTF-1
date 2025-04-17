@@ -5,6 +5,7 @@ import z from "zod";
 import validateJwt from "@/lib/validateJwt";
 import Game from "@/models/games";
 import mongoose from "mongoose";
+import Purchase from "@/models/purchase";
 
 export async function POST(req: Request) {
   try {
@@ -73,6 +74,14 @@ export async function POST(req: Request) {
 
       user.balance -= gamePrice;
       await user.save({ session });
+
+      const newPurchase = new Purchase({
+        price: game.price,
+        user: user._id,
+        game: game._id,
+      });
+      await newPurchase.save();
+
       return NextResponse.json({ ok: true });
     });
   } catch {
