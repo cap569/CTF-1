@@ -1,4 +1,5 @@
 import React from "react";
+import Form from "./components/form";
 
 function Page() {
   return (
@@ -6,6 +7,7 @@ function Page() {
       <p className="text-[#1999ff] text-sm mb-6 font-medium uppercase">
         ADICIONAR NOVO JOGO
       </p>
+      <Form />
     </div>
   );
 }

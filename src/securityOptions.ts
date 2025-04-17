@@ -1,7 +1,7 @@
 // This file is used to prevent DB pollution and
 // avoid beeing charged $ 20K for a simple CTF.
 // Setting up a limit of records and other sensitive/expensive
-// resources. Thank me later.
+// resources.
 
 const options = {
   paginationSize: 50, // For admin tables

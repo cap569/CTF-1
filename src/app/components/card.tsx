@@ -21,9 +21,6 @@ function Card() {
       "
       >
         <h1>Nome do jogo</h1>
-        <p className="text-sm mt-2 text-[#b6bcc0]">
-          Oferta acaba em 21/04/2025
-        </p>
         {/** Disconto */}
         <div className="flex items-center justify-start mt-2">
           <div className="px-1.5 h-10 py-0.5 flex items-center justify-center bg-[#4C6B22] font-semibold text-2xl text-[#BEEE11]">

@@ -43,6 +43,10 @@ export const GameValidators = {
     .max(
       options.maxGamePicture,
       `photoUrl deve ter no máximo ${options.maxGamePicture} `
+    )
+    .regex(
+      /^https?:\/\/(i\.)?imgur\.com\/[A-Za-z0-9]+\.(jpg|jpeg|png|gif)$/i,
+      "photoUrl deve ser uma URL válida do Imgur (jpg, jpeg, png ou gif)"
     ),
   description: z
     .string({
@@ -65,8 +69,8 @@ export const GameValidators = {
       message: "activePromo deve ser um numero",
       required_error: "Faltando activePromo",
     })
-    .min(0, "ActivePromo deve ser maior ou igual a 0")
-    .max(100, `ActivePromo deve ser no máximo 100`),
+    .min(0, "Promocao deve ser maior ou igual a 0")
+    .max(100, `Promocao deve ser no máximo 100`),
 };
 
 export default Game;
