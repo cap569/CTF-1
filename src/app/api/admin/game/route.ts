@@ -2,6 +2,8 @@ import connectDB from "@/lib/mongoose";
 import { NextResponse } from "next/server";
 import z from "zod";
 import Game, { GameValidators } from "@/models/games";
+import { getGamesCount } from "@/lib/db/game";
+import options from "@/securityOptions";
 
 export async function POST(req: Request) {
   try {
@@ -21,6 +23,17 @@ export async function POST(req: Request) {
     const data = bodyParser.data;
 
     await connectDB();
+
+    const totalGames = await getGamesCount();
+    if (totalGames >= options.maxGames) {
+      return NextResponse.json(
+        {
+          error: "Número máximo de jogos cadastrados (integridade do CTF)",
+        },
+        { status: 500 }
+      );
+    }
+
     const newGame = new Game({
       name: data.name,
       slug: data.slug.toLowerCase(),

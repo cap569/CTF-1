@@ -24,6 +24,16 @@ export async function getGameById(id: string): Promise<GameInterface | null> {
   }
 }
 
+export async function getGameBySlug(
+  slug: string
+): Promise<GameInterface | null> {
+  await connectDB();
+  const game = await Game.findOne({ slug: slug.toLowerCase() });
+  if (!game) return null;
+  game.id = game._id.toString();
+  return game as GameInterface;
+}
+
 export async function getGamesCount() {
   await connectDB();
   return await Game.countDocuments();
