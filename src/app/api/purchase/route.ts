@@ -91,7 +91,7 @@ export async function POST(req: Request) {
         await user.save({ session });
 
         const newPurchase = new Purchase({
-          price: game.price,
+          price: gamePrice,
           user: user._id,
           game: game._id,
           hash: `${user._id.toString()}${game._id.toString()}`,
