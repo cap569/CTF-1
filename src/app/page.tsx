@@ -1,15 +1,18 @@
 import Link from "next/link";
 import Card from "./components/card";
 import LargeCard from "./components/largeCard";
-import SmallCard from "./components/smallCard";
 import Navbar from "@/components/navbar";
 import { listGames } from "@/lib/db/game";
+import { getLastGameReviews } from "@/lib/db/purchase";
+import Reviews from "./components/reviews";
 
 export default async function Home() {
   const games = await listGames(1);
   const ofertas = games
     .filter(({ activePromo }) => activePromo > 0)
     .slice(0, 3);
+
+    const lastReviews = (await getLastGameReviews()).slice(0, 6);
 
   return (
     <>
@@ -33,8 +36,17 @@ export default async function Home() {
 
         <div className="mt-20">
           <p className="text-sm uppercase">Últimos Reviews</p>
-          <div className="grid-cols-4 grid gap-4 mt-4">
-            <SmallCard />
+          <div className="grid-cols-3 grid gap-4 mt-4">
+            {lastReviews.map(({ _id, game, review, stars }) => (
+              <Reviews
+                name={game.name}
+                photoUrl={game.photoUrl}
+                review={review}
+                stars={stars}
+                slug={game.slug}
+                key={_id}
+              />
+            ))}
           </div>
         </div>
 
@@ -42,7 +54,15 @@ export default async function Home() {
           <p className="text-sm">TODOS OS JOGOS</p>
           <div className="flex flex-col items-center gap-2 mt-4">
             {games.map(
-              ({ id, name, description, photoUrl, price, activePromo, slug }) => (
+              ({
+                id,
+                name,
+                description,
+                photoUrl,
+                price,
+                activePromo,
+                slug,
+              }) => (
                 <Link className="w-full" key={slug} href={`/jogo/${slug}`}>
                   <LargeCard
                     key={id}

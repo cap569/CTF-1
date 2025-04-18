@@ -1,17 +1,20 @@
 import Link from "next/link";
 import React from "react";
-import Reviews from "./components/reviews";
+import Reviews from "../components/reviews";
 import validateJwt from "@/lib/validateJwt";
 import { getUserById } from "@/lib/db/user";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import Navbar from "@/components/navbar";
+import { getUserLastReviews } from "@/lib/db/purchase";
 
 async function Page() {
   const token = await validateJwt();
   if (!token) redirect("/login");
   const user = await getUserById(token.id);
   if (!user) redirect("/login");
+
+  const lastReviews = await getUserLastReviews(user.id.toString());
 
   return (
     <>
@@ -61,10 +64,16 @@ async function Page() {
         {/** Lista de jogos */}
         {/** Deve ter botao de refund */}
         <div className="grid grid-cols-3 gap-2 w-full">
-          <Reviews />
-          <Reviews />
-          <Reviews />
-          <Reviews />
+          {lastReviews.map(({ _id, game, review, stars }) => (
+            <Reviews
+              name={game.name}
+              photoUrl={game.photoUrl}
+              review={review}
+              stars={stars}
+              slug={game.slug}
+              key={_id}
+            />
+          ))}
         </div>
 
         <div

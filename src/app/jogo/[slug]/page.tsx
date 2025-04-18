@@ -1,8 +1,11 @@
 import Navbar from "@/components/navbar";
 import { getGameBySlug } from "@/lib/db/game";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
+import Reviews from "./components/reviews";
+import { getGameReviews } from "@/lib/db/purchase";
+import Link from "next/link";
+import NewReview from "./components/newReview";
 
 async function Page({ params }: { params: { slug: string } }) {
   const { slug } = await params;
@@ -21,10 +24,12 @@ async function Page({ params }: { params: { slug: string } }) {
   const discount = (game.price * game.activePromo) / 100;
   const newPrice = game.price - discount;
 
+  const reviews = await getGameReviews(game.id);
+
   return (
     <>
       <Navbar />
-      <div className="max-w-4xl w-full mx-auto flex items-center justify-between flex-col gap-12">
+      <div className="max-w-4xl w-full mx-auto flex items-center justify-between flex-col gap-4">
         <header className="w-full bg-[#171D25] p-6 mt-4 rounded-md shadow-2xl flex items-start justify-between">
           <div className="flex items-start gap-6 h-full w-full">
             {/** Imagem */}
@@ -73,6 +78,26 @@ async function Page({ params }: { params: { slug: string } }) {
             </div>
           </div>
         </header>
+
+        <NewReview gameId={game.id} />
+
+        {reviews.length > 0 ? (
+          <div className="w-full mt-16">
+            <p className="uppercase text-sm">Avaliações</p>
+            <div className="grid grid-cols-3 gap-3 mt-2">
+              {reviews.map(({ _id, user, review, stars }) => (
+                <Reviews
+                  key={_id}
+                  stars={stars}
+                  username={user.username}
+                  description={review}
+                />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p>Esse jogo não tem reviews ainda</p>
+        )}
       </div>
     </>
   );
