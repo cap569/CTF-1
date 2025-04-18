@@ -15,6 +15,10 @@ export async function POST(req: Request) {
       .object({
         username: UserValidators.username,
         password: UserValidators.password,
+        captcha: z.string({
+          message: "Invalid Captcha",
+          required_error: "Invalid Captcha",
+        }),
       })
       .safeParse(body);
 
@@ -25,6 +29,26 @@ export async function POST(req: Request) {
         },
         { status: 400 }
       );
+    }
+
+    const verifyResponse = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          secret: process.env.TURNSTILE_SECRET_KEY!,
+          response: bodyParser.data.captcha,
+        }),
+      }
+    );
+
+    const verification = await verifyResponse.json();
+
+    if (!verification.success) {
+      return NextResponse.json({ error: "Captcha Inválido" }, { status: 403 });
     }
 
     await connectDB();

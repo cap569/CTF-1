@@ -2,16 +2,18 @@
 
 import React, { useState } from "react";
 import axios from "axios";
+import Turnstile from "react-turnstile";
 
 function LoginForm() {
   const [remember, setRemeber] = useState(true);
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
   const [err, setErr] = useState("");
+  const [captcha, setCaptcha] = useState("");
 
   const [loading, setLoading] = useState(false);
 
-  const valid = name && pass && !loading;
+  const valid = captcha && name && pass && !loading;
 
   const handleLogin = async () => {
     if (!valid) return;
@@ -22,6 +24,7 @@ function LoginForm() {
         {
           username: name,
           password: pass,
+          captcha,
         },
         { withCredentials: true }
       )
@@ -62,13 +65,19 @@ function LoginForm() {
 
       <div
         onClick={() => setRemeber((e) => !e)}
-        className="mt-3 flex items-center gap-1.5 cursor-pointer group"
+        className="mt-3 mb-3.5 flex items-center gap-1.5 cursor-pointer group"
       >
         <div className="h-5 w-5 rounded-sm bg-[#32353c] group-hover:bg-[#3d4047] flex items-center justify-center text-sm">
           {remember && "✓"}
         </div>
         <p className="text-[#afafaf] text-xs">Lembrar desse computador</p>
       </div>
+
+      {/** Mehh, .env not working here, so just use hardcoded sitekey */}
+      <Turnstile
+        sitekey={"0x4AAAAAABOj2nss3mIxF1dZ"}
+        onSuccess={(token) => setCaptcha(token)}
+      />
 
       <button
         className={`mt-6 opacity-80 hover:opacity-100 cursor-pointer h-11 rounded-sm w-full bg-linear-to-r from-[#07BFFF] to-[#2D73FF] ${

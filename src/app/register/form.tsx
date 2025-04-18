@@ -3,15 +3,18 @@
 import { validateEmail } from "@/utils/email";
 import axios from "axios";
 import React, { useState } from "react";
+import Turnstile from "react-turnstile";
 
 function RegisterForm() {
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
   const [email, setEmail] = useState("");
+  const [captcha, setCaptcha] = useState("");
   const [err, setErr] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const valid = name && pass && email && validateEmail(email) && !loading;
+  const valid =
+    captcha && name && pass && email && validateEmail(email) && !loading;
 
   const handleRegister = async () => {
     if (!valid) return;
@@ -23,6 +26,7 @@ function RegisterForm() {
           username: name,
           email,
           password: pass,
+          captcha,
         },
         { withCredentials: true }
       )
@@ -65,9 +69,15 @@ function RegisterForm() {
       <p className="mt-3 text-[#afafaf] text-xs font-medium">SENHA</p>
       <input
         type="password"
-        className="h-10 mt-0.5 text-sm w-[400px] bg-[#32353C] hover:bg-[#3d4047]  outline-none pl-4 "
+        className="h-10 mt-0.5 mb-3.5 text-sm w-[400px] bg-[#32353C] hover:bg-[#3d4047]  outline-none pl-4 "
         value={pass}
         onChange={(e) => setPass(e.target.value)}
+      />
+
+      {/** Mehh, .env not working here, so just use hardcoded sitekey */}
+      <Turnstile
+        sitekey={"0x4AAAAAABOj2nss3mIxF1dZ"}
+        onSuccess={(token) => setCaptcha(token)}
       />
 
       <button
