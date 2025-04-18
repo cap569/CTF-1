@@ -5,7 +5,7 @@ import Image from "next/image";
 import Navbar from "@/components/navbar";
 import { getUserLastReviews } from "@/lib/db/purchase";
 
-async function Page({ params }: { params: { slug: string } }) {
+async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
   const user = await getUserBySlug(slug);

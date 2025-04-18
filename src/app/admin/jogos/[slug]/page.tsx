@@ -2,7 +2,7 @@ import React from "react";
 import Form from "./components/form";
 import { getGameById } from "@/lib/db/game";
 
-async function Page({ params }: { params: { slug: string } }) {
+async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const game = await getGameById(slug);
 

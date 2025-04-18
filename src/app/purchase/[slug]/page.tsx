@@ -7,7 +7,7 @@ import React from "react";
 import PurchaseButton from "./components/purchaseButton";
 import Purchase from "@/models/purchase";
 
-async function Page({ params }: { params: { slug: string } }) {
+async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
   const token = await validateJwt();

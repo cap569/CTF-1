@@ -2,7 +2,7 @@ import { getUserById } from "@/lib/db/user";
 import React from "react";
 import Form from "./components/form";
 
-async function Page({ params }: { params: { slug: string } }) {
+async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const user = await getUserById(slug);
 

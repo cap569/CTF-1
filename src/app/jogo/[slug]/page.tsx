@@ -7,7 +7,7 @@ import { getGameReviews } from "@/lib/db/purchase";
 import Link from "next/link";
 import NewReview from "./components/newReview";
 
-async function Page({ params }: { params: { slug: string } }) {
+async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
   const game = await getGameBySlug(slug);
