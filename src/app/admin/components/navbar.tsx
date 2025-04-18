@@ -13,12 +13,6 @@ function AdminNavbar() {
         <div className="flex items-center gap-4 font-medium text-lg text-[#dcdedf]">
           <Link
             className={`hover:text-white uppercase transition-all delay-75`}
-            href={"/admin"}
-          >
-            dashboard
-          </Link>
-          <Link
-            className={`hover:text-white uppercase transition-all delay-75`}
             href={"/admin/jogos"}
           >
             Jogos

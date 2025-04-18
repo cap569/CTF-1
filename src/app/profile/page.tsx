@@ -52,12 +52,14 @@ async function Page() {
               R$ {user.balance.toFixed(2)}
             </div>
 
-            <Link
-              className="from-[#2A475E] to-[#223143] bg-gradient-to-b text-sm px-4 py-1.5 rounded-sm cursor-pointer opacity-100 hover:opacity-85 transition-all delay-75"
-              href={"/editprofile"}
-            >
-              Editar perfil
-            </Link>
+            <div className="flex items-end flex-col gap-2">
+              <Link
+                className="from-[#2A475E] to-[#223143] bg-gradient-to-b text-sm px-4 py-1.5 rounded-sm cursor-pointer opacity-100 hover:opacity-85 transition-all delay-75"
+                href={"/editprofile"}
+              >
+                Editar perfil
+              </Link>
+            </div>
           </div>
         </header>
 

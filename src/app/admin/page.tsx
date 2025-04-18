@@ -1,11 +1,7 @@
-import React from "react";
+import { redirect } from "next/navigation";
 
 function Page() {
-  return (
-    <div>
-      <p>Admin Dashboard!</p>
-    </div>
-  );
+  redirect("/admin/jogos");
 }
 
 export default Page;
