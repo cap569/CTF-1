@@ -53,6 +53,7 @@ export const UserValidators = {
       message: "Description deve ser uma string",
       required_error: "Description password",
     })
+    .regex(/^[^\\\"`<>]+$/, 'Descrição não pode ter \\, ", <, > ')
     .max(
       options.maxDescriptionLength,
       `Description deve ter no máximo ${options.maxDescriptionLength} `

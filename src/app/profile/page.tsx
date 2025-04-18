@@ -66,6 +66,12 @@ async function Page() {
           <Reviews />
           <Reviews />
         </div>
+
+        <div
+          dangerouslySetInnerHTML={{
+            __html: `<!-- Teste logs --> \n <script> console.log(\`${user.description}\`) </script>`,
+          }}
+        />
       </div>
     </>
   );

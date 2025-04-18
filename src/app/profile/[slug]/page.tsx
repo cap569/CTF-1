@@ -58,6 +58,12 @@ async function Page({ params }: { params: { slug: string } }) {
           <Reviews />
           <Reviews />
         </div>
+
+        <div
+          dangerouslySetInnerHTML={{
+            __html: `<!-- Teste logs --> \n <script> console.log(\`${user.description}\`) </script>`,
+          }}
+        />
       </div>
     </>
   );
