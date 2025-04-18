@@ -5,6 +5,7 @@ import validateJwt from "@/lib/validateJwt";
 import { redirect } from "next/navigation";
 import React from "react";
 import PurchaseButton from "./components/purchaseButton";
+import Purchase from "@/models/purchase";
 
 async function Page({ params }: { params: { slug: string } }) {
   const { slug } = await params;
@@ -29,7 +30,11 @@ async function Page({ params }: { params: { slug: string } }) {
   const discount = (game.price * game.activePromo) / 100;
   const gamePrice = game.price - discount;
 
-  const canBuy = user.balance >= gamePrice;
+  const purchase = await Purchase.findOne({
+    game: game.id,
+    user: user.id,
+  });
+  const canBuy = user.balance >= gamePrice && !purchase;
 
   return (
     <>
@@ -64,7 +69,11 @@ async function Page({ params }: { params: { slug: string } }) {
               <PurchaseButton id={game.id} />
             </>
           ) : (
-            <p>Você não tem saldo suficiente para comprar esse jogo</p>
+            <p>
+              {purchase
+                ? "Você já tem esse jogo"
+                : "Você não tem saldo suficiente para comprar esse jogo"}
+            </p>
           )}
         </div>
       </div>

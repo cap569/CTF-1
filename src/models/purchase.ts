@@ -6,6 +6,10 @@ const purchaseSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   review: { type: String },
   stars: { type: Number },
+  // Transactions in mongo are actual TRASH
+  // so we create a hash (user_game) to guarantee
+  // the only purchase.
+  hash: { type: String, required: true, unique: true },
 });
 
 const Purchase =
