@@ -8,12 +8,15 @@ interface ReviewProps {
   id: string;
 }
 
-function Reviews({ username, description, stars, id}: ReviewProps) {
+function Reviews({ username, description, stars, id }: ReviewProps) {
   return (
     <div id={id} className="bg-[#171D25] p-4 rounded-sm">
       <header className="flex items-start gap-2.5">
         <div>
-          <Link className="underline" href={"/profile/"}>
+          <Link
+            className="underline"
+            href={`/profile/${username.toLowerCase()}`}
+          >
             {username}
           </Link>
           <p className="text-sm text-amber-500">
