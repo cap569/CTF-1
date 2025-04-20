@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import "./games";
+import "./users";
 
 const purchaseSchema = new mongoose.Schema({
   price: { type: Number, required: true },

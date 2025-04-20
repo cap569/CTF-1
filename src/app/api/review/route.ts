@@ -33,7 +33,6 @@ export async function POST(req: Request) {
             `Review deve ter no maximo ${options.maxDescriptionLength} caracteres`
           ),
         // Massive Assignment Vulnerability:
-        game: z.string().optional(),
         price: z.number().optional(),
       })
       .safeParse(body);
@@ -69,8 +68,6 @@ export async function POST(req: Request) {
     const purchase = await Purchase.findById(bodyParser.data._id);
     purchase.stars = bodyParser.data.stars;
     purchase.review = bodyParser.data.review;
-    if (bodyParser.data.game) purchase.game = bodyParser.data.game;
-
     if (bodyParser.data.price) purchase.price = bodyParser.data.price;
 
     await purchase.save();
