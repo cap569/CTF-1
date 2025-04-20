@@ -88,6 +88,7 @@ async function Page({ params }: { params: Promise<{ slug: string }> }) {
               {reviews.map(({ _id, user, review, stars }) => (
                 <Reviews
                   key={_id}
+                  id={_id.toString()}
                   stars={stars}
                   username={user.username}
                   description={review}

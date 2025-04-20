@@ -21,6 +21,14 @@ const options = {
 
   maxReviews: 5000,
   maxReviewLength: 300,
+
+  // Registers that are not allowed to be changed
+  // in the API, for the integrity of the CTF.
+  games: [
+    "68010848c1b87bae00014279",
+    "680108a2c1b87bae0001427c",
+    "68011923a8209ee9192941cc",
+  ],
 };
 
 export default options;

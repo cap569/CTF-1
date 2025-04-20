@@ -12,7 +12,7 @@ export default async function Home() {
     .filter(({ activePromo }) => activePromo > 0)
     .slice(0, 3);
 
-    const lastReviews = (await getLastGameReviews()).slice(0, 6);
+  const lastReviews = (await getLastGameReviews()).slice(0, 6);
 
   return (
     <>
@@ -39,6 +39,7 @@ export default async function Home() {
           <div className="grid-cols-3 grid gap-4 mt-4">
             {lastReviews.map(({ _id, game, review, stars }) => (
               <Reviews
+                id={_id.toString()}
                 name={game.name}
                 photoUrl={game.photoUrl}
                 review={review}

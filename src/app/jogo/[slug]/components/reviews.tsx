@@ -5,11 +5,12 @@ interface ReviewProps {
   username: string;
   description: string;
   stars: number;
+  id: string;
 }
 
-function Reviews({ username, description, stars }: ReviewProps) {
+function Reviews({ username, description, stars, id}: ReviewProps) {
   return (
-    <div className="bg-[#171D25] p-4 rounded-sm">
+    <div id={id} className="bg-[#171D25] p-4 rounded-sm">
       <header className="flex items-start gap-2.5">
         <div>
           <Link className="underline" href={"/profile/"}>

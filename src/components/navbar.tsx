@@ -23,8 +23,8 @@ async function Navbar({
       <div className="max-w-4xl w-full mx-auto flex items-center justify-between">
         <Image
           src={"/logo.svg"}
-          height={176}
-          width={44}
+          height={44}
+          width={176}
           alt="logo"
           className="w-[176px] h-[44px]"
         />

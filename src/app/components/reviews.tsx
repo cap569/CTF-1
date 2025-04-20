@@ -7,12 +7,13 @@ interface ReviewProps {
   name: string;
   review: string;
   photoUrl: string;
+  id: string;
   slug: string;
 }
 
-function Reviews({ name, stars, review, slug, photoUrl }: ReviewProps) {
+function Reviews({ name, stars, review, slug, photoUrl, id}: ReviewProps) {
   return (
-    <div className="bg-[#171D25] p-4 rounded-sm w-full">
+    <div id={id} className="bg-[#171D25] p-4 rounded-sm w-full">
       <header className="flex items-start gap-2.5">
         <Image
           alt="photo"

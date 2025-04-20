@@ -68,6 +68,7 @@ async function Page() {
         <div className="grid grid-cols-3 gap-2 w-full">
           {lastReviews.map(({ _id, game, review, stars }) => (
             <Reviews
+              id={_id.toString()}
               name={game.name}
               photoUrl={game.photoUrl}
               review={review}

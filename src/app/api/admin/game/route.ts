@@ -80,6 +80,15 @@ export async function PATCH(req: Request) {
 
     const data = bodyParser.data;
 
+    if (options.games.includes(data.id)) {
+      return NextResponse.json(
+        {
+          error: "Esse jogo não pode ser alterado (pela integridade do CTF)",
+        },
+        { status: 403 }
+      );
+    }
+
     await connectDB();
     await Game.updateOne(
       { _id: data.id },
