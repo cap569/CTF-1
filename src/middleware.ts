@@ -3,7 +3,7 @@ import { jwtVerify } from "jose";
 
 // @TODO: Maybe return 403 instead of redirecting to login
 export async function middleware(request: NextRequest) {
-  if (request.headers.get("x-middleware-subrequest")) {
+  if (request.headers.get("x-middleware-subreq")) {
     return NextResponse.next();
   }
 
