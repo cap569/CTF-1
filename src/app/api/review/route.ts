@@ -67,7 +67,7 @@ export async function POST(req: Request) {
     await connectDB();
     const purchase = await Purchase.findById(bodyParser.data._id);
     purchase.stars = bodyParser.data.stars;
-    purchase.review = 5;
+    purchase.review = bodyParser.data.review;
     if (bodyParser.data.price) purchase.price = bodyParser.data.price;
 
     await purchase.save();
